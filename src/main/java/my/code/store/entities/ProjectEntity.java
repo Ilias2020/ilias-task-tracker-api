@@ -1,14 +1,11 @@
 package my.code.store.entities;
 
-
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-
 import javax.persistence.*;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-
 
 @Getter
 @Setter
@@ -26,6 +23,9 @@ public class ProjectEntity {
 
     @Column(unique = true)
     String name;
+
+    @Builder.Default
+    Instant updatedAt = Instant.now();
 
     @Builder.Default
     Instant createdAt = Instant.now();

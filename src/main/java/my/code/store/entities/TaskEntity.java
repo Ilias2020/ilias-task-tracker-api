@@ -2,10 +2,8 @@ package my.code.store.entities;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-
 import javax.persistence.*;
 import java.time.Instant;
-import java.util.List;
 
 @Getter
 @Setter
@@ -27,5 +25,4 @@ public class TaskEntity {
     Instant createdAt = Instant.now();
 
     String description;
-
 }
