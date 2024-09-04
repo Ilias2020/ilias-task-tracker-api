@@ -4,7 +4,10 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import my.code.api.dto.ProjectDto;
+import my.code.api.exceptions.BadRequestException;
 import my.code.api.factories.ProjectDtoFactory;
+import my.code.store.entities.ProjectEntity;
+import my.code.store.repositories.ProjectRepository;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
@@ -15,14 +18,24 @@ import javax.transaction.Transactional;
 @RestController
 public class ProjectController {
 
+    ProjectRepository projectRepository;
+
     ProjectDtoFactory projectDtoFactory;
 
     private static final String CREATE_PROJECT = "/api/projects";
     @PostMapping(CREATE_PROJECT)
-    public ProjectDto createProject();
+    public ProjectDto createProject(@RequestParam String name){
 
-    @GetMapping
-    @PutMapping
-    @PatchMapping
-    @DeleteMapping
+        ProjectRepository
+                .findByName(name)
+                .ifPresent(project -> {
+                    throw new BadRequestException(String.format("Project \"%s\" already exist.", name));
+                });
+
+
+        ProjectEntity project =
+        //return projectDtoFactory.makeProjectDto();
+        return null;
+    }
+
 }
